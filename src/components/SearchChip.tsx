@@ -1,9 +1,24 @@
 import '../styles/SearchChip.css'
 
-export function SearchChip() {
+type SearchChipProps = {
+  value: string
+  active: boolean
+  onClick: () => void
+}
+
+export function SearchChip({
+  value,
+  active,
+  onClick,
+}: SearchChipProps) {
   return (
-    <button className="search-chip search-chip--active" type="button" aria-current="true">
-      cats
+    <button
+      className={`search-chip ${active ? 'search-chip--active' : ''}`}
+      type="button"
+      aria-current={active}
+      onClick={onClick}
+    >
+      {value}
     </button>
   )
 }

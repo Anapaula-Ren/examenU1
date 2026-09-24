@@ -1,9 +1,24 @@
 import '../styles/GifExplorer.css'
-import { GifGrid } from './GifGrid.tsx'
-import { SearchBar } from './SearchBar.tsx'
-import { SearchHistory } from './SearchHistory.tsx'
+import { GifGrid } from './GifGrid'
+import { SearchBar } from './SearchBar'
+import { SearchHistory } from './SearchHistory'
+import { useGiphySearch } from '../hooks/useGiphySearch'
+import { useEffect } from 'react'
 
 export function GifExplorer() {
+  const {
+    gifs,
+    query,
+    history,
+    loading,
+    error,
+    search,
+  } = useGiphySearch()
+
+  useEffect(() => {
+    search('cats')
+  }, [])
+
   return (
     <main className="gif-explorer">
       <header className="gif-explorer__header">
@@ -14,15 +29,23 @@ export function GifExplorer() {
         </p>
       </header>
 
-      <SearchBar />
-      <SearchHistory />
+      <SearchBar onSearch={search} initialValue={query} />
 
-      <section className="gif-explorer__results" aria-label="Resultados">
+      <SearchHistory
+        history={history}
+        activeQuery={query}
+        onSelect={search}
+      />
+
+      <section className="gif-explorer__results">
         <div className="gif-explorer__results-header">
-          <h2>Resultados para «cats»</h2>
-          <p>6 GIFs</p>
+          <h2>Resultados para «{query}»</h2>
+          <p>{gifs.length} GIFs</p>
         </div>
-        <GifGrid />
+
+        {loading && <p>Cargando GIFs...</p>}
+        {error && <p>{error}</p>}
+        {!loading && !error && <GifGrid gifs={gifs} />}
       </section>
     </main>
   )
