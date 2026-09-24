@@ -5,7 +5,7 @@ const apiKey = import.meta.env.VITE_GIPHY_API_KEY
 
 export function useGiphySearch() {
   const [gifs, setGifs] = useState<Gif[]>([])
-  const [query, setQuery] = useState('cats')
+  const [query, setQuery] = useState('')
   const [history, setHistory] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')

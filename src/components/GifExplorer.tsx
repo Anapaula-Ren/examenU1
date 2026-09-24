@@ -15,9 +15,9 @@ export function GifExplorer() {
     search,
   } = useGiphySearch()
 
-  useEffect(() => {
+  /*useEffect(() => {
     search('cats')
-  }, [])
+  }, [])*/
 
   return (
     <main className="gif-explorer">
