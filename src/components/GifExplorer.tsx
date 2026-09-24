@@ -3,7 +3,7 @@ import { GifGrid } from './GifGrid'
 import { SearchBar } from './SearchBar'
 import { SearchHistory } from './SearchHistory'
 import { useGiphySearch } from '../hooks/useGiphySearch'
-import { useEffect } from 'react'
+
 
 export function GifExplorer() {
   const {
