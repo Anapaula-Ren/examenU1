@@ -1,20 +1,20 @@
-import { useState } from 'react'
+import type { FormEvent } from 'react'
 import '../styles/SearchBar.css'
 
 type SearchBarProps = {
-  onSearch: (term: string) => void
-  initialValue: string
+  value: string
+  onChange: (value: string) => void
+  onSearch: () => void
 }
 
 export function SearchBar({
+  value,
+  onChange,
   onSearch,
-  initialValue,
 }: SearchBarProps) {
-  const [term, setTerm] = useState(initialValue)
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    onSearch(term)
+    onSearch()
   }
 
   return (
@@ -26,8 +26,8 @@ export function SearchBar({
           id="gif-search"
           className="search-bar__input"
           type="search"
-          value={term}
-          onChange={(event) => setTerm(event.target.value)}
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
           placeholder="Escribe un término"
         />
 

@@ -4,14 +4,15 @@ import type { Gif, GiphyResponse } from '../types/giphy'
 const apiKey = import.meta.env.VITE_GIPHY_API_KEY
 
 export function useGiphySearch() {
+  const [term, setTerm] = useState('')
   const [gifs, setGifs] = useState<Gif[]>([])
   const [query, setQuery] = useState('')
   const [history, setHistory] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  async function search(term: string) {
-    const cleanTerm = term.trim()
+  async function search(termToSearch: string) {
+    const cleanTerm = termToSearch.trim()
 
     if (!cleanTerm) {
       return
@@ -42,6 +43,7 @@ export function useGiphySearch() {
 
       setGifs(formattedGifs)
       setQuery(cleanTerm)
+      setTerm(cleanTerm)
 
       setHistory((currentHistory) => [
         cleanTerm,
@@ -56,6 +58,8 @@ export function useGiphySearch() {
   }
 
   return {
+    term,
+    setTerm,
     gifs,
     query,
     history,

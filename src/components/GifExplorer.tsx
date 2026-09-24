@@ -7,6 +7,8 @@ import { useGiphySearch } from '../hooks/useGiphySearch'
 
 export function GifExplorer() {
   const {
+    term,
+    setTerm,
     gifs,
     query,
     history,
@@ -15,7 +17,7 @@ export function GifExplorer() {
     search,
   } = useGiphySearch()
 
-   return (
+  return (
     <main className="gif-explorer">
       <header className="gif-explorer__header">
         <p className="gif-explorer__kicker">Giphy</p>
@@ -25,7 +27,11 @@ export function GifExplorer() {
         </p>
       </header>
 
-      <SearchBar onSearch={search} initialValue={query} />
+      <SearchBar
+        value={term}
+        onChange={setTerm}
+        onSearch={() => search(term)}
+      />
 
       <SearchHistory
         history={history}
